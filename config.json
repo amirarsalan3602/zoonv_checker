@@ -1,0 +1,94 @@
+{
+    "_comment": {
+        "remark": "🇺🇸US | 🔴 | vless | @vmessorg | 12"
+    },
+    "log": {
+        "access": "",
+        "error": "",
+        "loglevel": "error",
+        "dnsLog": false
+    },
+    "inbounds": [
+        {
+            "tag": "in_proxy",
+            "port": 10810,
+            "protocol": "socks",
+            "listen": "127.0.0.1",
+            "settings": {
+                "auth": "noauth",
+                "udp": true,
+                "userLevel": 8
+            },
+            "sniffing": {
+                "enabled": false
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "proxy",
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "66.235.200.129",
+                        "port": 8443,
+                        "users": [
+                            {
+                                "id": "d3ee451d-3877-4c0a-858f-0b4e4a00de99",
+                                "security": "auto",
+                                "level": 8,
+                                "encryption": "none",
+                                "flow": ""
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "ws",
+                "security": "tls",
+                "wsSettings": {
+                    "path": "/",
+                    "headers": {
+                        "Host": "vmessorg.xn--54qv00ez5ar77g.co"
+                    }
+                },
+                "tlsSettings": {
+                    "allowInsecure": true,
+                    "serverName": "vmessorg.xn--54qv00ez5ar77g.co",
+                    "show": false,
+                    "publicKey": "",
+                    "shortId": "",
+                    "spiderX": ""
+                }
+            },
+            "mux": {
+                "enabled": false,
+                "concurrency": 8
+            }
+        },
+        {
+            "tag": "direct",
+            "protocol": "freedom",
+            "settings": {
+                "domainStrategy": "UseIp"
+            }
+        },
+        {
+            "tag": "blackhole",
+            "protocol": "blackhole",
+            "settings": {}
+        }
+    ],
+    "dns": {
+        "servers": [
+            "8.8.8.8"
+        ]
+    },
+    "routing": {
+        "domainStrategy": "UseIp",
+        "rules": [],
+        "balancers": []
+    }
+}
