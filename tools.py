@@ -152,7 +152,7 @@ class Tools:
         url = url.replace(url[url.find("#") + 1:], "@ZoonV | ارائه دهنده VPN پرسرعت در ایران")
         if url.find("serviceName=") != -1:
             url = re.sub(r'(serviceName=)[^&]*', rf"@ZoonV | ارائه دهنده VPN پرسرعت در ایران", url)
-        if self.cash.llen("accepted") >= 10:
+        if self.cash.llen("accepted") >= 100:
             self.cash.rpop("accepted")
         self.cash.lpush("accepted", url)
         # if self.cash.llen("accepted") >= 100:
