@@ -150,11 +150,17 @@ class Tools:
 
     def accepted(self, url: str):
         url = url.replace(url[url.find("#") + 1:], "@ZoonV | ارائه دهنده VPN پرسرعت در ایران")
-        if self.cash.llen("accepted") >= 100:
+        if url.find("serviceName=") != -1:
+            url = re.sub(r'(serviceName=)[^&]*', rf"@ZoonV | ارائه دهنده VPN پرسرعت در ایران", url)
+        if self.cash.llen("accepted")>=10:
             self.cash.rpop("accepted")
-            self.cash.lpush("accepted", url)
-        elif self.cash.llen("accepted") <= 100:
-            self.cash.lpush("accepted", url)
+        self.cash.lpush("accepted", url)
+        # if self.cash.llen("accepted") >= 100:
+        #     self.cash.rpop("accepted")
+        #     self.cash.lpush("accepted", url)
+        # elif self.cash.llen("accepted") <= 100:
+        #     self.cash.lpush("accepted", url)
 
 
-application = Tools()
+# left <
+# right >

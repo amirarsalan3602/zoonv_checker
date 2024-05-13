@@ -15,6 +15,7 @@ fixed_text = """#profile-title: base64:8J+GkyBHaXRodWIgfCBCYXJyeS1mYXIg8J+ltw==
 #profile-web-page-url: https://github.com/barry-far/V2ray-Configs
 """
 
+
 # Base64 decoding function
 def decode_base64(encoded):
     decoded = ""
@@ -25,6 +26,7 @@ def decode_base64(encoded):
         except (UnicodeDecodeError, binascii.Error):
             pass
     return decoded
+
 
 # Function to decode base64-encoded links with a timeout
 def decode_links(links):
@@ -39,6 +41,7 @@ def decode_links(links):
             pass  # If the request fails or times out, skip it
     return decoded_data
 
+
 # Function to decode directory links with a timeout
 def decode_dir_links(dir_links):
     decoded_dir_links = []
@@ -51,6 +54,7 @@ def decode_dir_links(dir_links):
             pass  # If the request fails or times out, skip it
     return decoded_dir_links
 
+
 # Filter function to select lines based on specified protocols
 def filter_for_protocols(data, protocols):
     filtered_data = []
@@ -58,6 +62,7 @@ def filter_for_protocols(data, protocols):
         if any(protocol in line for protocol in protocols):
             filtered_data.append(line)
     return filtered_data
+
 
 # Create necessary directories if they don't exist
 def ensure_directories_exist():
@@ -71,8 +76,9 @@ def ensure_directories_exist():
 
     return output_folder, base64_folder
 
+
 # Main function to process links and write output files
-def main():
+def repo_main():
     output_folder, base64_folder = ensure_directories_exist()  # Ensure directories are created
 
     protocols = ["vmess", "vless", "trojan", "ss", "ssr", "hy2", "tuic", "warp://"]
@@ -113,7 +119,7 @@ def main():
     # Clean existing output files
     output_filename = os.path.join(output_folder, "All_Configs_Sub.txt")
     filename1 = os.path.join(output_folder, "All_Configs_base64_Sub.txt")
-    
+
     if os.path.exists(output_filename):
         os.remove(output_filename)
     if os.path.exists(filename1):
@@ -142,7 +148,7 @@ def main():
     num_files = (num_lines + max_lines_per_file - 1) // max_lines_per_file
 
     for i in range(num_files):
-        profile_title = f"🆓 Git:Barry-far | Sub{i+1} 🫂"
+        profile_title = f"🆓 Git:Barry-far | Sub{i + 1} 🫂"
         encoded_title = base64.b64encode(profile_title.encode()).decode()
         custom_fixed_text = f"""#profile-title: base64:{encoded_title}
 #profile-update-interval: 1
@@ -161,12 +167,9 @@ def main():
 
         with open(input_filename, "r") as input_file:
             config_data = input_file.read()
-        
+
         output_filename = os.path.join(base64_folder, f"Sub{i + 1}_base64.txt")
         with open(output_filename, "w") as output_file:
             encoded_config = base64.b64encode(config_data.encode()).decode()
             output_file.write(encoded_config)
 
-if __name__ == "__main__":
-    main()
-    print("updated")

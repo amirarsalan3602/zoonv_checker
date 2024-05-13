@@ -1,36 +1,63 @@
-from time import sleep
-# from tasks import calculate_download_speed_task
+from concurrent.futures import ThreadPoolExecutor
+
+from time import sleep, perf_counter
 from celery import Celery
+
+from repository.Files.app import repo_main
 from tools import Tools
 from tasks import calculate_download_speed
+from threading import Thread
+
+start = perf_counter()
 
 
 def main():
     application = Tools()
     application.read_repo()
-    urls = []
     total_elements = application.cash.llen("vless_urls")
-    for elements in range(0, total_elements, 10):
-        for url in application.cash.lrange("vless_urls", elements, elements + 9):
-            if len(urls) >= 10:
-                urls = []
-            urls.append(url.decode("utf-8"))
-        result_server = application.run_v2ray(urls=urls)
-        if result_server != "No ports are open":
-            for rs in result_server:
-                if len(application.check_port()) != 10:
-                    calculate_download_speed.apply_async(
-                        kwargs={"url_config": rs["url"], "port": rs['port'], "pid": rs["pid"]}, countdown=2)
-            else:
-                sleep(5)
-        else:
-            sleep(5)
-            ...
-    print("="*2000)
-    print(application.accepted)
+
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        for elements in range(0, total_elements, 10):
+            urls = [url.decode("utf-8") for url in application.cash.lrange("vless_urls", elements, elements + 9)]
+            result_server = application.run_v2ray(urls=urls)
+            futures = [executor.submit(calculate_download_speed, rs["url"], rs['pid'], rs["port"]) for rs in
+                       result_server]
+
+            # اگر می‌خواهید منتظر بمانید تا تمام تردها کار خود را تمام کنند
+            for future in futures:
+                future.result()
+
+    # این قسمت از کد برای اجرای کد پس از اتمام تمام تردها است
+    end = perf_counter()
+    print(f"finish time : {round(end - start)}")
+    repo_main()
+    main()
+
+    # application = Tools()
+    # application.read_repo()
+    # urls = []
+    #
+    # total_elements = application.cash.llen("vless_urls")
+    # for elements in range(0, total_elements, 10):
+    #     for url in application.cash.lrange("vless_urls", elements, elements + 9):
+    #         if len(urls) >= 10:
+    #             urls = []
+    #         urls.append(url.decode("utf-8"))
+    #     result_server = application.run_v2ray(urls=urls)
+    #     for rs in result_server:
+    #             t = Thread(target=calculate_download_speed,
+    #                        kwargs={'url_config': rs["url"], 'pid': rs['pid'], 'port': rs[
+    #                            "port"]})
+    #             t.start()
+    #             t.join()
+    #             # calculate_download_speed(url_config=rs["url"], pid=rs['pid'], port=rs["port"])
+    # else:
+    #     sleep(5)
+    #     ...
 
 
 if __name__ == "__main__":
+    repo_main()
     main()
     # # ایجاد نخ‌ها
     # thread_v2ray = threading.Thread(target=run_v2ray)

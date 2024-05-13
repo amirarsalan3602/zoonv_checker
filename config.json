@@ -1,6 +1,6 @@
 {
     "_comment": {
-        "remark": "🇺🇸US | 🔴 | vless | @vmessorg | 12"
+        "remark": "رایگان | VLESS | @free_v2rayyy | SE🇸🇪 | 0️⃣5️⃣"
     },
     "log": {
         "access": "",
@@ -31,11 +31,11 @@
             "settings": {
                 "vnext": [
                     {
-                        "address": "66.235.200.129",
-                        "port": 8443,
+                        "address": "185.146.173.58",
+                        "port": 80,
                         "users": [
                             {
-                                "id": "d3ee451d-3877-4c0a-858f-0b4e4a00de99",
+                                "id": "49eda324-e293-48ec-900c-ef28c4695076",
                                 "security": "auto",
                                 "level": 8,
                                 "encryption": "none",
@@ -47,20 +47,12 @@
             },
             "streamSettings": {
                 "network": "ws",
-                "security": "tls",
+                "security": "none",
                 "wsSettings": {
-                    "path": "/",
+                    "path": "/Telegram-free_v2rayyy-Telegram-free_v2rayyy-Telegram-free_v2rayyy-Telegram-free_v2rayyy-Telegram-free_v2rayyy-Telegram-free_v2rayyy-Telegram-free_v2rayyy-Telegram-free_v2rayyy-Telegram-free_v2rayyy-Telegram-free_v2rayyy?ed=2048",
                     "headers": {
-                        "Host": "vmessorg.xn--54qv00ez5ar77g.co"
+                        "Host": "501.ftp.debian.org.www.speedtest.net.免费上网66.Site."
                     }
-                },
-                "tlsSettings": {
-                    "allowInsecure": true,
-                    "serverName": "vmessorg.xn--54qv00ez5ar77g.co",
-                    "show": false,
-                    "publicKey": "",
-                    "shortId": "",
-                    "spiderX": ""
                 }
             },
             "mux": {
