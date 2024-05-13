@@ -45,7 +45,7 @@ class Tools:
         # thread_v2ray.start()
 
     def connection_redis(self):
-        return redis.Redis(host="localhost", port=6379, db=0)
+        return redis.Redis(host="localhost", port=6379, password="SMVlq?cp3h99kj", db=0)
 
     def convert_vless(self, url: str, port: int):
         # if re.search(r'^([^:]+)', url).group(1) == "vless":
@@ -152,7 +152,7 @@ class Tools:
         url = url.replace(url[url.find("#") + 1:], "@ZoonV | ارائه دهنده VPN پرسرعت در ایران")
         if url.find("serviceName=") != -1:
             url = re.sub(r'(serviceName=)[^&]*', rf"@ZoonV | ارائه دهنده VPN پرسرعت در ایران", url)
-        if self.cash.llen("accepted")>=10:
+        if self.cash.llen("accepted") >= 10:
             self.cash.rpop("accepted")
         self.cash.lpush("accepted", url)
         # if self.cash.llen("accepted") >= 100:
@@ -160,7 +160,6 @@ class Tools:
         #     self.cash.lpush("accepted", url)
         # elif self.cash.llen("accepted") <= 100:
         #     self.cash.lpush("accepted", url)
-
 
 # left <
 # right >
