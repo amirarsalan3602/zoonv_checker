@@ -43,10 +43,3 @@ def calculate_download_speed(url_config, pid, port, file_url="http://cachefly.ca
         application.cash.lrem("vless_urls", 1, url_config)
         application.refused += 1
         look.release()
-
-
-# application.run_v2ray([
-#     "vless://d8704b00-c989-480d-8cec-b87c86201a38@104.18.140.51:80?security=&type=ws&path=/Telegram:@vmessorg-Telegram:@vmessorg-Telegram:@vmessorg&host=vmessorg1.xn--54qv00ez5ar77g.co.&encryption=none#%F0%9F%9A%A9CF%20%7C%20%F0%9F%94%B4%20%7C%20vless%20%7C%20@vmessorg%20%7C%201"])
-# print(calculate_download_speed(
-#     url_config='vless://d8704b00-c989-480d-8cec-b87c86201a38@104.18.140.51:80?security=&type=ws&path=/Telegram:@vmessorg-Telegram:@vmessorg-Telegram:@vmessorg&host=vmessorg1.xn--54qv00ez5ar77g.co.&encryption=none#%F0%9F%9A%A9CF%20%7C%20%F0%9F%94%B4%20%7C%20vless%20%7C%20@vmessorg%20%7C%201',
-#     port=10801, pid=16931))
