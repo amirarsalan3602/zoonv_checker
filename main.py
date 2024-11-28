@@ -28,6 +28,7 @@ def main():
     # این قسمت از کد برای اجرای کد پس از اتمام تمام تردها است
     end = perf_counter()
     print(f"finish time : {round(end - start)}")
+    application.cash.delete("vless_urls")
     repo_main()
     main()
 

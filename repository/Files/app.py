@@ -173,3 +173,6 @@ def repo_main():
             encoded_config = base64.b64encode(config_data.encode()).decode()
             output_file.write(encoded_config)
 
+
+
+repo_main()
